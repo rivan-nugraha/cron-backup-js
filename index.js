@@ -20,7 +20,7 @@ function logToFile(message) {
 const app = express();
 dotenv.config();
 
-cron.schedule("35 14 * * *", () => {
+cron.schedule("* 49 14 * * *", () => {
     try {
         logToFile("Backup Now");
         exec("sh ~/script/script_backup.sh", function(error, stdout, stderr) {
@@ -36,6 +36,8 @@ cron.schedule("35 14 * * *", () => {
         res.status(500).send("Backup Failed");
     }
 });
+
+cron.schedule()
 
 // Server Setup
 app.get('/check-node-cron', (req, res) => {
