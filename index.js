@@ -37,8 +37,6 @@ cron.schedule("0 53 14 * * *", () => {
     }
 });
 
-cron.schedule()
-
 // Server Setup
 app.get('/check-node-cron', (req, res) => {
     logToFile("Check Node-Cron");
