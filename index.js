@@ -1,4 +1,4 @@
-const exec = require('child_process');
+const exec = require('child_process').exec;
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
@@ -7,6 +7,7 @@ const dotenv = require("dotenv");
 const logFilePath = path.join(__dirname, '/logs/execution.log');
 
 function logToFile(message) {
+    console.log(message);
     const timeStampedMessage = `[${new Date().toISOString()}] ${message}\n`;
     fs.appendFile(logFilePath, timeStampedMessage, (err) => {
       if (err) {
@@ -26,15 +27,20 @@ app.get('/check-node-cron', (req, res) => {
 });
 
 app.get('/backup-now', (req, res) => {
-    logToFile("Backup Now");
-    exec("sh ~/script/script_backup.sh", function(error, stdout, stderr) {
-        logToFile('stdout: ' + stdout);
-        logToFile('stderr: ' + stderr);
-        if (error !== null) {
-             console.log('exec error: ' + error);
-        }
-    });
-    res.status(200).send("Backup Success");
+    try {
+        logToFile("Backup Now");
+        exec("sh ~/script/script_backup.sh", function(error, stdout, stderr) {
+            logToFile('stdout: ' + stdout);
+            logToFile('stderr: ' + stderr);
+            if (error !== null) {
+                logToFile('exec error: ' + error);
+            }
+        });
+        res.status(200).send("Backup Success");
+    } catch (error) {
+        logToFile(error);
+        res.status(500).send("Backup Failed");
+    }
 })
 
 app.listen(process.env.PORT, () => {
