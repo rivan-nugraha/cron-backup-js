@@ -21,6 +21,7 @@ const app = express();
 dotenv.config();
 
 cron.schedule("* 15 * * *", () => {
+    console.log("Cron Hitted");
     logToFile(`Backup Scheduled: ${new Date().toISOString().split("T")[0]}`);
     exec("sh ~/script/script_backup.sh", function(error, stdout, stderr) {
         logToFile('stdout: ' + stdout);
