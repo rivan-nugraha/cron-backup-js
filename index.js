@@ -3,6 +3,7 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const dotenv = require("dotenv");
+const cron = require('node-cron');
 
 const logFilePath = path.join(__dirname, '/logs/execution.log');
 
@@ -18,6 +19,23 @@ function logToFile(message) {
 
 const app = express();
 dotenv.config();
+
+cron.schedule("35 14 * * *", () => {
+    try {
+        logToFile("Backup Now");
+        exec("sh ~/script/script_backup.sh", function(error, stdout, stderr) {
+            logToFile('stdout: ' + stdout);
+            logToFile('stderr: ' + stderr);
+            if (error !== null) {
+                logToFile('exec error: ' + error);
+            }
+        });
+        res.status(200).send("Backup Success");
+    } catch (error) {
+        logToFile(error);
+        res.status(500).send("Backup Failed");
+    }
+});
 
 // Server Setup
 app.get('/check-node-cron', (req, res) => {
