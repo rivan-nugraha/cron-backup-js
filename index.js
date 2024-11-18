@@ -1,7 +1,8 @@
 const exec = require('child_process');
 const express = require('express');
-const dotenv = require('dotenv');
 const fs = require('fs');
+const path = require('path');
+const dotenv = require("dotenv");
 
 const logFilePath = path.join(__dirname, '/logs/execution.log');
 
@@ -14,10 +15,8 @@ function logToFile(message) {
     });
 }
 
-const express = require('express');
 const app = express();
 dotenv.config();
-
 
 // Server Setup
 app.get('/check-node-cron', (req, res) => {
