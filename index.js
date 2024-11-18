@@ -26,7 +26,7 @@ app.get('/check-node-cron', (req, res) => {
     res.send('Node-cron Is Running');
 });
 
-app.post('/backup-now', (req, res) => {
+app.get('/backup-now', (req, res) => {
     try {
         logToFile("Backup Now");
         exec("sh ~/script/script_backup.sh", function(error, stdout, stderr) {
