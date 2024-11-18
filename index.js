@@ -20,19 +20,15 @@ const express = require('express');
 const app = express();
 dotenv.config();
 
-cron.schedule("* * 1 * *", () => {
-    try {
-        logToFile(`Backup Scheduled: ${new Date().toISOString().split("T")[0]}`);
-        exec("sh ~/script/script_backup.sh", function(error, stdout, stderr) {
-            logToFile('stdout: ' + stdout);
-            logToFile('stderr: ' + stderr);
-            if (error !== null) {
-                logToFile('exec error: ' + error);
-            }
-        });
-    } catch (error) {
-        logToFile(error);
-    }
+cron.schedule("* 15 * * *", () => {
+    logToFile(`Backup Scheduled: ${new Date().toISOString().split("T")[0]}`);
+    exec("sh ~/script/script_backup.sh", function(error, stdout, stderr) {
+        logToFile('stdout: ' + stdout);
+        logToFile('stderr: ' + stderr);
+        if (error !== null) {
+            logToFile('exec error: ' + error);
+        }
+    });
 });
 
 // Server Setup
