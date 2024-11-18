@@ -23,7 +23,7 @@ dotenv.config();
 cron.schedule("* 15 * * *", () => {
     console.log("Cron Hitted");
     logToFile(`Backup Scheduled: ${new Date().toISOString().split("T")[0]}`);
-    exec("sh ~/script/script_backup.sh", function(error, stdout, stderr) {
+    exec("sh /root/script/script_backup.sh ", function(error, stdout, stderr) {
         logToFile('stdout: ' + stdout);
         logToFile('stderr: ' + stderr);
         if (error !== null) {
@@ -42,7 +42,7 @@ app.get('/check-node-cron', (req, res) => {
 app.get('/backup-now', (req, res) => {
     try {
         logToFile("Backup Now");
-        exec("sh ~/script/script_backup.sh", function(error, stdout, stderr) {
+        exec("sh /root/script/script_backup.sh ", function(error, stdout, stderr) {
             logToFile('stdout: ' + stdout);
             logToFile('stderr: ' + stderr);
             if (error !== null) {
