@@ -24,7 +24,7 @@ cron.schedule("*/1 * * * *", () => {
     console.log(`[DEBUG] Cron job triggered.`);
 });
 
-cron.schedule("* 15 * * *", () => {
+cron.schedule("*/1 * * * *", () => {
     console.log("Cron Hitted");
     logToFile(`Backup Scheduled: ${new Date().toISOString().split("T")[0]}`);
     exec("sh /home/backup/script/script_backup.sh ", function(error, stdout, stderr) {
