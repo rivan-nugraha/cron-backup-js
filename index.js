@@ -1,9 +1,8 @@
+const cron = require('node-cron');
 const exec = require('child_process').exec;
-const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const dotenv = require("dotenv");
-const cron = require('node-cron');
 
 const logFilePath = path.join(__dirname, '/logs/execution.log');
 
@@ -17,10 +16,11 @@ function logToFile(message) {
     });
 }
 
+const express = require('express');
 const app = express();
 dotenv.config();
 
-cron.schedule("59 14 * * *", () => {
+cron.schedule("* * 1 * *", () => {
     try {
         logToFile(`Backup Scheduled: ${new Date().toISOString().split("T")[0]}`);
         exec("sh ~/script/script_backup.sh", function(error, stdout, stderr) {
