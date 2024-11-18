@@ -20,6 +20,10 @@ const express = require('express');
 const app = express();
 dotenv.config();
 
+cron.schedule("*/1 * * * *", () => {
+    console.log(`[DEBUG] Cron job triggered.`);
+});
+
 cron.schedule("* 15 * * *", () => {
     console.log("Cron Hitted");
     logToFile(`Backup Scheduled: ${new Date().toISOString().split("T")[0]}`);
