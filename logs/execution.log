@@ -1,0 +1,7 @@
+[2024-11-18T07:20:47.894Z] Backup Now
+[2024-11-18T07:20:47.907Z] stdout: 
+[2024-11-18T07:20:47.907Z] stderr: sh: /Users/nagatech/script/script_backup.sh: No such file or directory
+
+[2024-11-18T07:20:47.907Z] exec error: Error: Command failed: sh ~/script/script_backup.sh
+sh: /Users/nagatech/script/script_backup.sh: No such file or directory
+
